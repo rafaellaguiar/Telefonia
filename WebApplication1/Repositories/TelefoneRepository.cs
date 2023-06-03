@@ -5,6 +5,7 @@ namespace Telefonia.Core.Repositories;
 
 public class TelefoneRepository
 {
+
     private readonly MySqlConnection _connection;
 
     public TelefoneRepository(MySqlConnection connection)
@@ -39,29 +40,29 @@ public class TelefoneRepository
     }
 
 
-    public async Task<IEnumerable<Usuario>> GetContatos(string idUsuario) 
+    public async Task<IEnumerable<Contato>> GetContatos(string idUsuario) 
     {
         await _connection.OpenAsync();
 
-        var command = $"call ObterContatosPorUsuario({idUsuario})"; 
+        var command = $"call ObterContatosPorUsuario(\"{idUsuario}\")"; 
 
         var sqlCommand = new MySqlCommand(command, _connection);
-        var usuarios = new List<Usuario>();
+        var contatos = new List<Contato>();
 
        var reader =  await sqlCommand.ExecuteReaderAsync();
 
         while (reader.Read()) 
         {
-            usuarios.Add(new Usuario()
+            contatos.Add(new Contato()
             {
                 IdUsuario = reader["idUsuario"].ToString(),
-                Email = reader["email"].ToString(),
-                Nome = reader["nome"].ToString(),
-                Telefone = reader["telefone"].ToString()
+                IdContato = Int32.Parse(reader["idContato"].ToString()),
+                NumeroTelefone = reader["numeroTelefone"].ToString(),
+                NomeContato = reader["nomeContato"].ToString(),
             }) ;
         };
 
         _connection.Close();
-        return usuarios;
+        return contatos;
     }
 }

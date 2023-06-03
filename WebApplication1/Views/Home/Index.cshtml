@@ -1,20 +1,28 @@
-﻿@model IndexModel
+﻿@using Telefonia.Core.Models
+@model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    var telefones = ViewData["ListaTelefones"] as List<string>;
+    var telefones = ViewData["ListaTelefones"] as IEnumerable<Contato>;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Meus Contatos</h1>
     <div class="row">
         <table-responsive>
             <table align="center">
+                <tr>
+                    <th>Nome<th/>
+                    <th>telefone<th/>
+                </tr>
                 @foreach(var telefone in telefones)
                 {
                     <tr>
                         <td>
-                            @telefone
+                            @telefone.NomeContato
+                        </td>
+                        <td></td>
+                        <td>
+                            @telefone.NumeroTelefone
                         </td>
                     </tr>
                 }

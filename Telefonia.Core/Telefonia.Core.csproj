@@ -18,4 +18,10 @@
     <Folder Include="Infra\Context\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebApplication1\Telefonia.Web.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>

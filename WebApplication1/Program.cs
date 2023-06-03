@@ -1,7 +1,13 @@
+using MySqlConnector;
+using Telefonia.Core.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddTransient<TelefoneRepository>(); 
+builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(builder.Configuration.GetConnectionString("mysql")));
 
 var app = builder.Build();
 

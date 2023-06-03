@@ -1,30 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Telefonia.Core.Models;
+using Telefonia.Core.Repositories;
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly TelefoneRepository _telefoneRepository;
+        public HomeController(TelefoneRepository telefoneRepository)
+        {
+            _telefoneRepository = telefoneRepository;
+        }
+
         [Route("/")]
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
-            List<string> telefones = GetListaTelefones();
+            IEnumerable<Contato> telefones = await GetListaTelefones();
 
             ViewData["ListaTelefones"] = telefones;
 
             return View();
         }
-        private List<string> GetListaTelefones()
+        private async Task<IEnumerable<Contato>> GetListaTelefones()
         {
-            var lista = new List<string>();
-
-            for (int i = 0; i < 10; i++)
-            {
-                lista.Add("TELEFONO" + i.ToString());
-            }
-
-            return lista;
+            return await _telefoneRepository.GetContatos("13fe5d8f-dd71-4fc5-af1d-d687b3c253f9");
         }
     }
 }
