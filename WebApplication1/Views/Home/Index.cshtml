@@ -26,15 +26,15 @@
                     {
                         <tr>
                             <td>
-                                <span id="nomeContato">@contato.NomeContato</span>
-                                <input id="inputEditarContato" type="text" class="text-truncate d-none input-editar" aria-describedby="aliasHelp" placeholder="Novo nome">
-                                <a class="editar-confirmar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Confirmar edição"><i id="inputEditarContatoConfirmar" class="bi bi-check-square-fill d-none text-success" onclick="editarContatoConfirmar(@contato.IdContato)"></i></a>
+                                <span id="@("nome-contato-" + contato.IdContato)" class="text-truncate">@contato.NomeContato</span>
+                                <input maxlength="50" id="@("inputEditarContato-" + contato.IdContato)" type="text" class="text-truncate d-none input-editar" aria-describedby="aliasHelp" placeholder="Novo nome">
+                                <a class="editar-confirmar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Confirmar edição"><i id="@("inputEditarContatoConfirmar-" + contato.IdContato)" class="bi bi-check-square-fill d-none text-success" onclick="editarContatoConfirmar(@contato.IdContato)"></i></a>
                             </td>
                             <td></td>
                             <td>@contato.NumeroTelefone</td>
                             <td></td>
                             <td>
-                                <a class="bi bi-pencil-fill delete-button" onclick="editarContato()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Editar nome"></a>
+                                <a class="bi bi-pencil-fill delete-button" onclick="editarContato(@contato.IdContato)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Editar nome"></a>
                                 <a onclick="deletarContato(@contato.IdContato)" class="delete-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Excluir contato"><i class="bi bi-trash3-fill"></i></a>                            
                             </td>
                         </tr>
@@ -55,8 +55,8 @@
           </div>
           <div class="modal-body">
             <div class="mb-3">
-                <div class="row"><input type="text" class="form-control" id="nome-input" placeholder="Insira o nome"></div>
-                <div class="row"><input type="text" class="form-control" id="telefone-input" placeholder="Insira o telefone"></div>
+                <div class="row"><input maxlength="50" type="text" class="form-control" id="nome-input" placeholder="Insira o nome"></div>
+                <div class="row"><input maxlength="14" type="text" class="form-control" id="telefone-input" placeholder="Insira o telefone"></div>
             </div>
           </div>
           <div class="modal-footer">

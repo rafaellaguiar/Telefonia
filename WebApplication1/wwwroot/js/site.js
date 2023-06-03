@@ -7,14 +7,14 @@
     });
 }
 
-function editarContato() {
-    $("#nomeContato").addClass("d-none");
-    $("#inputEditarContato").removeClass("d-none");
-    $("#inputEditarContatoConfirmar").removeClass("d-none");
+function editarContato(idContato) {
+    $("#nome-contato-" + idContato).addClass("d-none");
+    $("#inputEditarContato-" + idContato).removeClass("d-none");
+    $("#inputEditarContatoConfirmar-" + idContato).removeClass("d-none");
 }
 
 function editarContatoConfirmar(idContato) {
-    let novoNomeContato = $("#inputEditarContato").val();
+    let novoNomeContato = $("#inputEditarContato-" + idContato).val();
     console.log(novoNomeContato);
     $.ajax({
         url: "contato/editar?idContato=" + idContato + "&novoNomeContato=" + novoNomeContato,
