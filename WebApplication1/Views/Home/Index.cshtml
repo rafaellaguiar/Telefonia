@@ -2,33 +2,68 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    var telefones = ViewData["ListaTelefones"] as IEnumerable<Contato>;
+    var contatos = ViewData["ListaTelefones"] as IEnumerable<Contato>;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Meus Contatos</h1>
+    <h1 class="display-4">Meus Contatos</h1> 
+    <div class="row" align="right"><a class="editar-confirmar" onclick="openModal()" data-bs-placement="left" data-bs-custom-class="custom-tooltip" data-bs-title="Adicionar contato"><i class="bi bi-plus-circle" ></i></a></div>
     <div class="row">
         <table-responsive>
             <table align="center">
-                <tr>
-                    <th>Nome<th/>
-                    <th>telefone<th/>
-                </tr>
-                @foreach(var telefone in telefones)
-                {
+                <thead>
                     <tr>
-                        <td>
-                            @telefone.NomeContato
-                        </td>
-                        <td></td>
-                        <td>
-                            @telefone.NumeroTelefone
-                        </td>
+                        
+                        <th>Nome</th>
+                        <th></th>
+                        <th>Número</th>
+                        <th></th>
+                        <th>Ações</th>
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var contato in contatos)
+                    {
+                        <tr>
+                            <td>
+                                <span id="nomeContato">@contato.NomeContato</span>
+                                <input id="inputEditarContato" type="text" class="text-truncate d-none input-editar" aria-describedby="aliasHelp" placeholder="Novo nome">
+                                <a class="editar-confirmar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Confirmar edição"><i id="inputEditarContatoConfirmar" class="bi bi-check-square-fill d-none text-success" onclick="editarContatoConfirmar(@contato.IdContato)"></i></a>
+                            </td>
+                            <td></td>
+                            <td>@contato.NumeroTelefone</td>
+                            <td></td>
+                            <td>
+                                <a class="bi bi-pencil-fill delete-button" onclick="editarContato()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Editar nome"></a>
+                                <a onclick="deletarContato(@contato.IdContato)" class="delete-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Excluir contato"><i class="bi bi-trash3-fill"></i></a>                            
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </table-responsive>
         
     </div>
-    
+
+
+    <div class="modal" tabindex="-1" id="modal-novo-contato">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Novo contato</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+                <div class="row"><input type="text" class="form-control" id="nome-input" placeholder="Insira o nome"></div>
+                <div class="row"><input type="text" class="form-control" id="telefone-input" placeholder="Insira o telefone"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="criarContato('@contatos.FirstOrDefault().IdUsuario')">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

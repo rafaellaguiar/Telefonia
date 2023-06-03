@@ -16,3 +16,33 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.delete-button {
+    cursor: pointer;
+    color: #000000;
+}
+
+.input-editar {
+    border: none;
+}
+
+td {
+    border-bottom: 1px solid;
+    padding-bottom: 8px;
+    border-left-width: 0;
+    min-width: 120px;
+    height: 18px;
+}
+
+.botao-editar {
+    
+}
+
+.input-editar:focus, input:focus {
+    outline: none;
+}
+
+.editar-confirmar {
+    cursor: pointer;
+    color: #000000;
+}

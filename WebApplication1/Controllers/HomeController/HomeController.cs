@@ -27,5 +27,27 @@ namespace WebApplication1.Controllers
         {
             return await _telefoneRepository.GetContatos("13fe5d8f-dd71-4fc5-af1d-d687b3c253f9");
         }
+
+        [HttpGet]
+        [Route("contato/delete")]
+        public async Task<bool> DeletarContato(int idContato)
+        {
+            return await _telefoneRepository.DeleteContato(idContato);
+        }
+
+        [HttpGet]
+        [Route("contato/editar")]
+        public async Task<bool> EditarContato(int idContato, string novoNomeContato)
+        {
+            return await _telefoneRepository.AlterarNomeContato(idContato, novoNomeContato);
+        }
+
+        [HttpGet]
+        [Route("contato/criar")]
+        public async Task CriarContato(string telefone, string nomeContato, string idUsuario)
+        {
+            await _telefoneRepository.InserirContato(telefone, nomeContato, idUsuario);
+        }
+
     }
 }

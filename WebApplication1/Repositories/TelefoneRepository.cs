@@ -12,11 +12,11 @@ public class TelefoneRepository
         _connection = connection;
     }
 
-    public async Task InserirContato(int idContato, string numeroTelefone, string nomeContato, string idUsuario)
+    public async Task InserirContato(string numeroTelefone, string nomeContato, string idUsuario)
     {
         await _connection.OpenAsync();
 
-        var command = $"call InserirContato({idContato}, {numeroTelefone}, {nomeContato},{idUsuario})";
+        var command = $"call InserirContato(\"{numeroTelefone}\", \"{nomeContato}\", \"{idUsuario} \")";
 
         var sqlCommand = new MySqlCommand(command, _connection);
 
@@ -24,7 +24,7 @@ public class TelefoneRepository
 
         _connection.Close();
     }
-    public async Task DeleteContato(int idContato)
+    public async Task<bool> DeleteContato(int idContato)
     {
         await _connection.OpenAsync();
 
@@ -32,21 +32,31 @@ public class TelefoneRepository
 
         var sqlCommand = new MySqlCommand(command, _connection);
 
-        await sqlCommand.ExecuteNonQueryAsync();
+        try
+        {
+            await sqlCommand.ExecuteNonQueryAsync();
+        } catch
+        {
+            return false;
+        }
 
         _connection.Close();
+
+        return true;
     }
-    public async Task AlterarNumeroTelefoneContato(int idContato, string novoTelefone)
+    public async Task<bool> AlterarNomeContato(int idContato, string novoNomeContato)
     {
         await _connection.OpenAsync();
 
-        var command = $"call AlterarNumeroTelefone({idContato}, \"{novoTelefone}\")";
+        var command = $"call AlterarNomeContato({idContato}, \"{novoNomeContato}\")";
 
         var sqlCommand = new MySqlCommand(command, _connection);
 
         await sqlCommand.ExecuteNonQueryAsync();
 
         _connection.Close();
+
+        return true;
     }
     public async Task<IEnumerable<Contato>> GetContatos(string idUsuario) 
     {
