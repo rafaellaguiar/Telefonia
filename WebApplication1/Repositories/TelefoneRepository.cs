@@ -5,7 +5,6 @@ namespace Telefonia.Core.Repositories;
 
 public class TelefoneRepository
 {
-
     private readonly MySqlConnection _connection;
 
     public TelefoneRepository(MySqlConnection connection)
@@ -25,12 +24,11 @@ public class TelefoneRepository
 
         _connection.Close();
     }
-
-    public async Task InserirUsuario(string idUsuario, string nome, string telefone, string email)
+    public async Task DeleteContato(int idContato)
     {
         await _connection.OpenAsync();
 
-        var command = $"call InserirUsuario({idUsuario}, {nome}, {telefone},{email})";
+        var command = $"call DeletarContato({idContato})";
 
         var sqlCommand = new MySqlCommand(command, _connection);
 
@@ -38,8 +36,18 @@ public class TelefoneRepository
 
         _connection.Close();
     }
+    public async Task AlterarNumeroTelefoneContato(int idContato, string novoTelefone)
+    {
+        await _connection.OpenAsync();
 
+        var command = $"call AlterarNumeroTelefone({idContato}, \"{novoTelefone}\")";
 
+        var sqlCommand = new MySqlCommand(command, _connection);
+
+        await sqlCommand.ExecuteNonQueryAsync();
+
+        _connection.Close();
+    }
     public async Task<IEnumerable<Contato>> GetContatos(string idUsuario) 
     {
         await _connection.OpenAsync();
