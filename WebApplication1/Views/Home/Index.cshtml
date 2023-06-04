@@ -15,9 +15,7 @@
                     <tr>
                         
                         <th>Nome</th>
-                        <th></th>
                         <th>Número</th>
-                        <th></th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -27,12 +25,10 @@
                         <tr>
                             <td>
                                 <span id="@("nome-contato-" + contato.IdContato)" class="text-truncate">@contato.NomeContato</span>
-                                <input maxlength="50" id="@("inputEditarContato-" + contato.IdContato)" type="text" class="text-truncate d-none input-editar" aria-describedby="aliasHelp" placeholder="Novo nome">
+                                <input maxlength="50" id="@("inputEditarContato-" + contato.IdContato)" type="text" class="d-none input-editar" aria-describedby="aliasHelp" placeholder="Novo nome">
                                 <a class="editar-confirmar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Confirmar edição"><i id="@("inputEditarContatoConfirmar-" + contato.IdContato)" class="bi bi-check-square-fill d-none text-success" onclick="editarContatoConfirmar(@contato.IdContato)"></i></a>
                             </td>
-                            <td></td>
                             <td>@contato.NumeroTelefone</td>
-                            <td></td>
                             <td>
                                 <a class="bi bi-pencil-fill delete-button" onclick="editarContato(@contato.IdContato)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Editar nome"></a>
                                 <a onclick="deletarContato(@contato.IdContato)" class="delete-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Excluir contato"><i class="bi bi-trash3-fill"></i></a>                            
